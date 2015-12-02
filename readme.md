@@ -35,7 +35,19 @@ Let's see if we can make something similar, wrapped up in our own custom HTML el
 
 ## Know The Code - Independent (5 mins)
 
-Take five minutes and inspect our starter code. You'll see a pretty normal Angular app, and since we're repeating using those cards, and there's a few consistent tags we're repeating every time we render a card, we're going to experiment with making those cards a custom-defined directive.
+<!--Go ahead and grab the starter code, and take five minutes to inspect it.-->
+
+<!--* Clone, or fork then clone, this repo.-->
+<!--* Find the starter code in the the `starter-code/app/` directory.-->
+
+<!--If you'd like to see it in your browser, you can:-->
+
+<!--* Make sure to run `bower install`.-->
+<!--* In the application directory run `python -m SimpleHTTPServer 8000`.-->
+<!--* Open your browser to "localhost:8000" (or similar).-->
+
+
+Take five minutes and inspect our starter code in this repo's `starter-code/app/` directory. You'll see a pretty normal Angular app, and since we're repeating using those cards, and there's a few consistent tags we're repeating every time we render a card, we're going to experiment with making those cards a custom-defined directive.
 
 <img width="965" alt="Cards Against Assembly" src="https://cloud.githubusercontent.com/assets/25366/9666972/05a2f348-522e-11e5-8f6c-7c503032eff4.png">
 
