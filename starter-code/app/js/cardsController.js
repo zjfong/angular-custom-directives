@@ -9,29 +9,6 @@ angular.module('CardsAgainstAssembly')
   self.all = [
     {
       question: "What is Batman's guilty pleasure?", 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
       answer: "Robert Downey Jr."
     },
     {
@@ -58,33 +35,5 @@ angular.module('CardsAgainstAssembly')
       question: "Why are there so many songs about rainbows?",
       answer: "It's not that easy being green."
     }
-]
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  }
-  ]);
+  ]
+}]);
