@@ -24,7 +24,7 @@
         <section id="cards" class='container-fluid' ng-controller="cardsController as cards">
           <div class='row'>
             <div class='col-sm-6 col-md-6 col-lg-4' ng-repeat="card in cards.all">
-              <card question="{{card.question}}" answer="{{card.answer}}"></card>
+              <card question="{{card.question}}" answer="{{card.answer}}" ng-click="swapMe()"></card>
             </div>
             <div class='col-sm-6 col-md-6 col-lg-4'>
               <card question="Where do babies come from?" answer="Go ask your mother">

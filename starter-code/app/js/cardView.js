@@ -7,7 +7,8 @@ function cardView(){
     directive.templateUrl = '_cardView.html';
     directive.scope = {
         question: '@',
-        answer: '@'
+        answer: '@',
+        'swapMe':'&swapMe'
     }
     return directive;
 }

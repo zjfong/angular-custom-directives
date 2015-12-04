@@ -1,14 +1,37 @@
 angular.module('CardsAgainstAssembly')
-  .controller('cardsController', ['$scope', function ($scope){
+  .controller('cardsController', ['$scope', function($scope){
 
-   $scope.swapMe = function(){ 
+  $scope.swapMe = function(){
     console.log(this.$$watchers[0].last);
-   }
-   var cardsController = this;
+  }
 
-  this.all = [
+  var self = this;
+  self.all = [
     {
       question: "What is Batman's guilty pleasure?", 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       answer: "Robert Downey Jr."
     },
     {
@@ -35,5 +58,33 @@ angular.module('CardsAgainstAssembly')
       question: "Why are there so many songs about rainbows?",
       answer: "It's not that easy being green."
     }
-  ]
-}]);
+]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  }
+  ]);
