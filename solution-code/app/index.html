@@ -12,32 +12,26 @@
         <script src="js/cardView.js"></script>
         <script src="js/cardsController.js"></script>
         <script src="js/playersController.js"></script>
-        <script src="js/scoresView.js"></script>
     </head>
     <body>
       <div class="container">
-
         <header class='navbar'>
           <h1 class='pull-left'>Cards Against Assembly</h1>
 
           <scores></scores>
         </header>
 
-
-
         <section id="cards" class='container-fluid' ng-controller="cardsController as cards">
           <div class='row'>
-
-            <div class='col-sm-6 col-md-6 col-lg-4' ng-repeat="card in cards.all" >
-              <card question="{{card.question}}"></card>
+            <div class='col-sm-6 col-md-6 col-lg-4' ng-repeat="card in cards.all">
+              <card question="{{card.question}}" answer="{{card.answer}}" ng-click="swapMe()"></card>
             </div>
-
+            <div class='col-sm-6 col-md-6 col-lg-4'>
+              <card question="Where do babies come from?" answer="Go ask your mother">
+            </card>
+      </div>
           </div>
         </section>
-
-        <hr/>
-
-        <card question="Why is Angular so awesome?"></card>
 
       <footer>
         <p>Made with <span class='heart'>♥︎</span> at General Assembly</p>
