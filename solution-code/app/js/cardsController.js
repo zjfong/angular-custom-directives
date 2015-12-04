@@ -2,7 +2,7 @@ angular.module('CardsAgainstAssembly')
   .controller('cardsController', ['$scope', function($scope){
 
   $scope.swapMe = function(){
-    console.log(this.$$watchers[0].last);
+    console.log(this.card.answer);
   }
 
   var self = this;
