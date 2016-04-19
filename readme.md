@@ -63,23 +63,20 @@ We want it to look like:
 
 ## Know The Code - Independent
 
+[GET THE STARTER CODE HERE!](https://github.com/sf-wdi-27-28/angular-custom-directives)
+
 Take five minutes and inspect our starter code. You'll see a pretty normal Angular app, and since we're repeating using those cards, and there's a few consistent tags we're repeating every time we render a card, we're going to experiment with making those cards a custom-defined directive.
 
-
-## Building a Simple Directive - Codealong (15 mins)
-
-[GET THE STARTER CODE HERE!](https://github.com/sf-wdi-22-23/angular-custom-directives)
 
 
 ### Let's be organized!
 
 Rather than just throw this wherever, let's make a file dedicated just to that function. Clean code, yo.
 
+I called it:
 ```
-touch js/cardView.js
+cardDirective.js
 ```
-
-Of course, it could be named anything, but it's sort of a view, and it's definitely a card, so `cardView` felt right. Up to you.
 
 #### Directives are as easy as...
 
