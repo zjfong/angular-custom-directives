@@ -12,16 +12,16 @@ Market: SF
 <!-- framing the "why" in big-picture/real world examples -->
 *This workshop is important because:*
 
-In Angular, custom directives are the way to write reusable components. "Components" are a modern pattern for creating modular web applications. If we can build a bunch of working components, we can tie them all together to build a full web app. Building a solid directive is the type of contribution you could make to the open source world!
+In Angular, custom directives are the way to write reusable components. "Components" are a modern pattern for creating modular web applications. If we can build a bunch of working components, we can tie them all together to build a full web app. In fact, in Angular 2, one specific category of reusable directive is called a "component." Building a solid directive is the type of contribution you could make to the open source community!
 
 ### What are the objectives?
 <!-- specific/measurable goal for students to achieve -->
 *After this workshop, developers will be able to:*
 
 
-- Explain why custom directives are valuable
-- Describe the different types of custom directives available
-- Create a custom directive
+- Explain the justifications for using custom directives
+- Describe the directive definition object and implement it in creating a directive.
+- Integrate a third party directive into your code.
 
 ### Where should we be now?
 <!-- call out the skills that are prerequisites -->
@@ -48,7 +48,7 @@ Examples:
 
 #### Real World Example
 
-As an example, we're going to mess around with duplicating something that's becoming a common pattern in interface design – the concept of a card. Applications like Twitter, Pinterest, Facebook, and others are moving towards this design pattern.
+As an example, we're going to mess around with duplicating something that's become a common pattern in interface design – the concept of a card. Applications like Twitter, Pinterest, Facebook, and others have moved towards this design pattern.
 
 <img width="571" alt="Twitter" src="https://cloud.githubusercontent.com/assets/25366/9665317/4f8a5e56-5224-11e5-9b9c-fe62d8a6cdf4.png">
 
@@ -78,7 +78,7 @@ We want it to look like:
 
 ## Know The Code - Independent
 
-[GET THE STARTER CODE HERE!](https://github.com/sf-wdi-27-28/angular-custom-directives)
+[GET THE STARTER CODE HERE!](https://github.com/sf-wdi-31/angular-custom-directives)
 
 Take five minutes and inspect our starter code. You'll see a pretty normal Angular app, and since we're repeating using those cards, and there's a few consistent tags we're repeating every time we render a card, we're going to experiment with making those cards a custom-defined directive.
 
@@ -108,7 +108,12 @@ Remember, in the official Angular docs it's called `ngClass` or `ngRepeat`, but 
 
 #### Let's make a function!
 
-Now, we obviously need a function named `wdiCard`!
+```js
+angular.module('CardsAgainstAssembly')
+  .directive('wdiCard', wdiCard);
+```
+
+Because we defined the directive without defining the second argument, we obviously need a function named `wdiCard`!
 
 ```js
 function wdiCard(){
@@ -350,6 +355,77 @@ Somewhere _outside_ the context of the controller, let's say just above the foot
 <img width="965" alt="Custom Card" src="https://cloud.githubusercontent.com/assets/25366/9668827/a352dbf8-5238-11e5-8d00-80ccf02ca95c.png">
 
 Would you look at that? Our own custom directive - a reusable, semantic HTML component that we designed ourselves.
+
+### A deeper dive on the directive definition object
+
+Check out this[directive definition object cheat sheet from egghead.io.](https://d2eip9sf3oo6c2.cloudfront.net/pdf/egghead-io-directive-definition-object-cheat-sheet.pdf). Specifically look at the `controller` and `link` options that can add functionality to a directive.
+
+We can use directives as simple templating as we did above with the card directive, but we can also make directives that have their own behaviors!
+
+Our code can be separated into small, organized pieces that have a single representation in the code as a directive.
+
+### Integrate a third party directive
+
+UI Bootstrap provides a wide array of useful directives that can bring cool functionality to your applications! Let's integrate the [ui bootstrap rating widget](https://angular-ui.github.io/bootstrap/#/rating) into our Cards Against Assembly app.
+
+#### Resolving dependencies
+
+UI Bootstrap has a handful of dependencies that we need to integrate before this directive will work.
+
+Use bower to install `bootstrap`, `angular-animate`, `angular-sanitize`, and of course, UI bootstrap itself, which is called `angular-bootstrap` when you download it.
+
+In your index.html, include all of these dependencies:
+
+```html
+<script src="bower_components/angular/angular.min.js"></script>
+<script src="bower_components/angular-animate/angular-animate.min.js"></script>
+<script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+
+<script src="scripts/app.js"></script>
+<script src="scripts/controllers/cardsController.js"></script>
+
+<link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+```
+Include these dependencies in app.js as well
+
+```javascript
+angular.module('CardsAgainstAssembly', ['ngAnimate', 'ngSanitize','ui.bootstrap']);
+
+```
+
+#### Building a controller
+
+Using the [rating widget demo's js file](https://angular-ui.github.io/bootstrap/#/rating) as your starting point, build a `rateController` with the necessary attributes. Remember that the example uses `$scope` and we'll use the `vm` syntax:
+
+```javascript
+
+angular.module('CardsAgainstAssembly')
+  .controller('rateController', rateController);
+
+function rateController(){
+  var vm = this;
+  vm.rate = 7;
+  vm.max = 10;
+
+  // etc... keep filling in the controller so that it has all of the
+  // attributes that the demo has
+}
+```
+
+Make sure to list `rateController` as a `<script>` in `index.html`!
+
+#### Including the HTML
+
+In a section below the cards, use the rating directive to add a feedback mechanism for users. Note again, the demo provides a good start, but we need to adjust the syntax for our case, adding `rateCtrl` where appropriate:
+```html
+<section ng-controller="rateController as rateCtrl">
+  <h2>Rate our app!</h2>
+  <span uib-rating ng-model="rateCtrl.rate" max="rateCtrl.max" read-only="rateCtrl.isReadonly" on-hover="rateCtrl.hoveringOver(value)" on-leave="rateCtrl.overStar = null" titles="['one','two','three']" aria-labelledby="default-rating"></span>
+</section>
+```
+
+Use the demo as inspiration to add additional features as desired!
 
 ### Resources
 
