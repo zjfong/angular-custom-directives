@@ -1,27 +1,42 @@
+<!--
+Creator: Team, editing by Cory
+Market: SF
+-->
+
+![](https://ga-dash.s3.amazonaws.com/production/assets/logo-9f88ae6c9c3871690e33280fcf557f33.png)
+
 # Writing Custom Directives
 
-| Objectives |
-| :--- |
-| *Students will be able to:* |
-| Explain why custom directives are valuable |
-| Describe the different types of custom directives available |
-| Create a custom directive |
+
+### Why is this important?
+<!-- framing the "why" in big-picture/real world examples -->
+*This workshop is important because:*
+
+In Angular, custom directives are the way to write reusable components. "Components" are a modern pattern for creating modular web applications. If we can build a bunch of working components, we can tie them all together to build a full web app. Building a solid directive is the type of contribution you could make to the open source world!
+
+### What are the objectives?
+<!-- specific/measurable goal for students to achieve -->
+*After this workshop, developers will be able to:*
 
 
+- Explain why custom directives are valuable
+- Describe the different types of custom directives available
+- Create a custom directive
 
-### Preparation
+### Where should we be now?
+<!-- call out the skills that are prerequisites -->
+*Before this workshop, developers should already be able to:*
 
-*Before this lesson, students should already be able to:*
-
-- Describe Angular directives
+- identify and use Angular's built-in directives.
+- build out a working AngularJS front end.
 
 ## Custom Directives - Intro
 
 As you've seen by now, directives make up a huge amount of the code you work with in Angular. Angular was designed to be an extension of HTML - a way to have custom-defined interactive tags of your own making.
 
-While we've been leveling up at using the directives that come with Angular, it's time to see what we can do if we start making some up.
+While we've been leveling up at using the directives that come with Angular, it's time to see what we can do if we start making some of our own.
 
-One of the most obvious _uses_ of this is when you've got repetitive code to render some information or data. If you're using a bunch of the same component all over the place, you would want to use the DRY principle – Don't Repeat Yourself. Instead of writing that component in several different views, you can extract it to a custom directive! We can just reference that directive whenever we need to use it and not worry about repeating the code to render it.
+Building a custom directive can eliminate repetitive code that renders data over and over again. If you're using the same component all over your client side interface, you still want your code to remain DRY (Don't Repeat Yourself). Instead of writing that component in several different views, you can extract it to a custom directive! We can just reference that directive whenever we need to use it and not worry about repeating the code to render it.
 
 Examples:
 * A "card" with info on it (see more below)
@@ -102,15 +117,15 @@ function wdiCard(){
 }
 ```
 
-Nothing fancy yet - we're just constructing an object and then returning it. We'll put some specifics in there now, but that's simple so far.
+Nothing fancy yet - we're just constructing an object and then returning it. When making a directive, you use a **Directive Definition Object** to specify the capabilities of your directive. The **Directive Definition Object** has specific keys that it expects in order to define attributes and behavior of your directive.
 
-## Directive Options - Codealong
+## Directive Options
 
 You've got a couple interesting options when making your own directives. We'll go through them all, quickly, and you can play with them on your own in a bit.
 
 1. `restrict`
-2. `replace`
-3. `template/templateUrl`
+2. `template/templateUrl`
+3. `replace`
 4. `scope`
 
 #### 1. `restrict`
@@ -139,40 +154,7 @@ function wdiCard(){
 }
 ```
 
-#### 2. `replace`
-
-Replace is pretty straightforward. Should this directive replace the HTML? Do you want it to get rid of what's in the template & swap it out with the template we're going to make? Or add to it, and not remove the original. For example, replacing would mean:
-
-```html
-<div ng-repeat="card in cardsCtlr.questionList" >
-  <wdi-card></wdi-card>
-</div>
-```
-
-Would actually render as:
-
-```html
-<div ng-repeat="card in cardsCtlr.questionList" >
-  <div class='card'>
-    <h4 class="card-title">{{question}}</h4>
-    <h6>Cards Against Assembly</h6>
-  </div>
-</div>
-```
-
-See, it's replaced. Let's say we like that for our example:
-
-```js
-function wdiCard(){
-  var directive = {
-    restrict: 'E',
-    replace: true
-  };
-  return directive;
-}
-```
-
-#### 3. `template/templateUrl`
+#### 2. `template/templateUrl`
 
 This is where our partial view comes in. Now, if it's a pretty tiny, self-contained directive, you can use `template: <p> "Some javascript " + string + " concatenation"</p>`
 
@@ -204,13 +186,63 @@ function wdiCard(){
   var directive = {
     //'A' == attribute, 'E' == element, 'C' == class
     restrict: 'E',
-    replace: true,
-    templateUrl:  "templates/cardDirective.html"
+    templateUrl:  'templates/cardDirective.html'
   };
 
   return directive;
 }
 ```
+
+#### 3. `replace`
+
+Replace is pretty straightforward. Should this directive replace the HTML that calls the directive? Do you want it to get rid of what's in the template & swap it out with the template we're going to make? Or add to it, and not remove the original. For example, replacing would mean:
+
+```html
+<div ng-repeat="card in cardsCtlr.questionList" >
+  <wdi-card></wdi-card>
+</div>
+```
+
+Would actually render as:
+
+```html
+<div ng-repeat="card in cardsCtlr.questionList" >
+  <div class='card'>
+    <h4 class="card-title">{{question}}</h4>
+    <h6>Cards Against Assembly</h6>
+  </div>
+</div>
+```
+
+
+See, `<wdi-card></wdi-card>` is gone, it's been replaced with the longer-form template that we defined above. Without replace, it would render as:
+
+```html
+<div ng-repeat="card in cardsCtlr.questionList" >
+  <wdi-card>
+    <div class='card'>
+      <h4 class="card-title">{{question}}</h4>
+      <h6>Cards Against Assembly</h6>
+    </div>
+  </wdi-card>
+</div>
+```
+
+
+Let's say we like the replace option for our example. We simply add `replace: true` to our directive definition object:
+
+```js
+function wdiCard(){
+  var directive = {
+    restrict: 'E',
+    replace: true,
+    templateUrl:  'templates/cardDirective.html'
+  };
+  return directive;
+}
+```
+
+### Get it connected
 
 And lastly, in our `index.html`, let's finally use our custom directive. So exciting. This is it. Here we go.
 
@@ -237,7 +269,7 @@ Just like controllers, we want to define what our scope is. We want to be able t
 
 That's where `directive.scope` comes in, and this lets us decide what attributes our element should have! For example, in our card example, maybe we want to render a card with just a string somewhere outside of this controller. We want to make our own card with our own hardcoded text.
 
-Try this. In your `index.html`, adjust our `<card>` element to say:
+Try this. In your `index.html`, adjust our `<wdi-card>` element to say:
 
 ```html
 <wdi-card question="{{card.question}}"></wdi-card>
@@ -295,7 +327,7 @@ scope: {
 The corresponding options would look like:
 
 ```html
-<div scope-example desired-object="to" desired-func="sendMail(email)" desired-string="ari@fullstack.io" />
+<div scope-example desired-object="to" desired-func="sendMail(email)" desired-string="How is your day today?" />
 ```
 
 The `=` is a mechanism for binding data that might change; the `&` is for passing a reference to a function you might want to call; and the `@` is simply storing a string & passing it through to the template.
@@ -321,4 +353,4 @@ Would you look at that? Our own custom directive - a reusable, semantic HTML com
 
 ### Resources
 
-[This cheat sheet from egghead.io](https://d2eip9sf3oo6c2.cloudfront.net/pdf/egghead-io-directive-definition-object-cheat-sheet.pdf) is a great resource for learning more about the specs allowed in the directive definition object.
+[Directive definition object cheat sheet from egghead.io](https://d2eip9sf3oo6c2.cloudfront.net/pdf/egghead-io-directive-definition-object-cheat-sheet.pdf) - a great resource for learning more about the specs allowed in the directive definition object.
