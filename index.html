@@ -7,9 +7,24 @@
         <link rel="stylesheet" href="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/css/bootstrap.css">
         <link rel="stylesheet" href="styles/style.css">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
+        <!-- <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script> -->
+
+
+        <script src="bower_components/angular/angular.min.js"></script>
+        <script src="bower_components/angular-animate/angular-animate.min.js"></script>
+        <script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+        <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+
         <script src="scripts/app.js"></script>
         <script src="scripts/controllers/cardsController.js"></script>
+        <script src="scripts/controllers/DatepickerPopupDemoCtrl.js"></script>
+        <script src="scripts/directives/card.js"></script>
+
+
+
+        <script src="scripts/controllers/rateController.js"></script>
+
+        <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     </head>
     <body>
       <div class="container">
@@ -18,18 +33,34 @@
 
           <scores></scores>
         </header>
+        <div id="calendar" ng-controller="DatepickerPopupDemoController as DatepickerPopupDemoCtrl">
+          <div class="col-md-12">
+            <p class="input-group">
+              <input type="text" class="form-control" uib-datepicker-popup ng-model="DatepickerPopupDemoCtrl.dt" is-open="DatepickerPopupDemoCtrl.popup2.opened" datepicker-options="DatepickerPopupDemoCtrl.dateOptions" ng-required="true" close-text="Close" />
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="DatepickerPopupDemoCtrl.open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+              </span>
+            </p>
+          </div>
+        </div>
+
 
         <section id="cards" class="container-fluid" ng-controller="cardsController as cardsCtrl">
           <div class="row">
 
             <div class="col-sm-6 col-md-6 col-lg-4" ng-repeat="card in cardsCtrl.questionsList" >
-              <div class="card">
-                <h4 class="card-title">{{card.question}}</h4>
-                <h6>Cards Against Assembly</h6>
-              </div>
+              <wdi-card question="{{card.question}}"></wdi-card>
             </div>
-
           </div>
+          <wdi-card question="What?"></wdi-card>
+        </section>
+
+
+
+        <section ng-controller="rateController as rateCtrl">
+          <h2>Rate our app!</h2>
+          <span uib-rating ng-model="rateCtrl.rate" max="rateCtrl.max" read-only="rateCtrl.isReadonly" on-hover="rateCtrl.hoveringOver(value)" on-leave="rateCtrl.overStar = null" titles="['one','two','three']" aria-labelledby="default-rating"></span>
+          <span class="label" ng-class="{'label-warning': rateCtrl.percent<30, 'label-info': rateCtrl.percent>=30 && rateCtrl.percent<70, 'label-success': rateCtrl.percent>=70}" ng-show="rateCtrl.overStar && !rateCtrl.isReadonly">{{rateCtrl.percent}}%</span>
         </section>
 
       <footer>
